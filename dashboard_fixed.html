@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Exchange Financial Online</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f4f7f9;
+      color: #172033;
+    }
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    .header {
+      background: #0f172a;
+      color: white;
+      padding: 18px 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      box-shadow: 0 4px 15px rgba(0,0,0,0.10);
+    }
+
+    .brand {
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .brand span {
+      display: block;
+      font-size: 11px;
+      font-weight: normal;
+      opacity: 0.65;
+      margin-top: 3px;
+    }
+
+    .profile-button {
+      width: 42px;
+      height: 42px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: white;
+      color: #0f172a;
+
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+
+    /* =========================
+       MAIN
+    ========================= */
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+
+      margin: auto;
+      padding: 22px 18px 35px;
+    }
+
+
+    /* =========================
+       WELCOME
+    ========================= */
+
+    .welcome {
+      margin-bottom: 20px;
+    }
+
+    .welcome h1 {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .welcome p {
+      color: #6b7280;
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       BALANCE CARD
+    ========================= */
+
+    .balance-card {
+      background: #0f172a;
+      color: white;
+
+      border-radius: 22px;
+
+      padding: 25px 22px;
+
+      margin-bottom: 22px;
+
+      box-shadow: 0 10px 30px rgba(15,23,42,0.18);
+    }
+
+    .balance-label {
+      font-size: 13px;
+      opacity: 0.70;
+      margin-bottom: 9px;
+    }
+
+    .balance {
+      font-size: 34px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    .currency {
+      font-size: 13px;
+      opacity: 0.65;
+    }
+
+
+    /* =========================
+       QUICK ACTIONS
+    ========================= */
+
+    .section-title {
+      font-size: 18px;
+      font-weight: bold;
+
+      margin-bottom: 13px;
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+
+      margin-bottom: 24px;
+    }
+
+    .action-card {
+      background: white;
+
+      border: 1px solid #e5e7eb;
+      border-radius: 17px;
+
+      padding: 22px 15px;
+
+      text-align: center;
+
+      cursor: pointer;
+
+      transition: 0.2s;
+    }
+
+    .action-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 20px rgba(0,0,0,0.08);
+    }
+
+    .action-icon {
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+
+    .action-card h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .action-card p {
+      color: #8a93a3;
+      font-size: 12px;
+    }
+
+
+    /* =========================
+       TRANSACTION CARD
+    ========================= */
+
+    .transactions {
+      background: white;
+
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+
+      overflow: hidden;
+    }
+
+    .transaction-header {
+      padding: 17px;
+
+      border-bottom: 1px solid #e5e7eb;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .transaction-header h2 {
+      font-size: 16px;
+    }
+
+    .view-all {
+      color: #2563eb;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .empty {
+      text-align: center;
+
+      padding: 30px 15px;
+
+      color: #9ca3af;
+      font-size: 13px;
+    }
+
+    .empty-icon {
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+
+
+    /* =========================
+       ACCOUNT INFO
+    ========================= */
+
+    .info-card {
+      background: white;
+
+      border: 1px solid #e5e7eb;
+      border-radius: 18px;
+
+      padding: 18px;
+
+      margin-top: 20px;
+    }
+
+    .info-card h3 {
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 9px 0;
+
+      border-bottom: 1px solid #f1f1f1;
+
+      font-size: 13px;
+    }
+
+    .info-row:last-child {
+      border-bottom: none;
+    }
+
+    .info-label {
+      color: #8a93a3;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    .footer {
+      text-align: center;
+
+      margin-top: 25px;
+
+      color: #9ca3af;
+
+      font-size: 11px;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 360px) {
+
+      .balance {
+        font-size: 29px;
+      }
+
+      .brand {
+        font-size: 17px;
+      }
+
+      .container {
+        padding-left: 14px;
+        padding-right: 14px;
+      }
+
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <header class="header">
+
+    <div class="brand">
+      Exchange Financial Online
+
+      <span>
+        Secure Online Financial Service
+      </span>
+    </div>
+
+    <button
+      class="profile-button"
+      onclick="openProfile()">
+
+      👤
+
+    </button>
+
+  </header>
+
+
+
+  <!-- =========================
+       MAIN
+  ========================== -->
+
+  <main class="container">
+
+
+    <!-- WELCOME -->
+
+    <section class="welcome">
+
+      <h1 id="welcomeName">
+        Welcome 👋
+      </h1>
+
+      <p>
+        Manage your account and transactions.
+      </p>
+
+    </section>
+
+
+
+    <!-- ACCOUNT BALANCE -->
+
+    <section class="balance-card">
+
+      <div class="balance-label">
+        Account Balance
+      </div>
+
+      <div
+        class="balance"
+        id="accountBalance">
+
+        0.00 Birr
+
+      </div>
+
+      <div class="currency">
+        Available balance
+      </div>
+
+    </section>
+
+
+
+    <!-- QUICK ACTIONS -->
+
+    <div class="section-title">
+      Quick Actions
+    </div>
+
+
+    <section class="actions">
+
+
+      <!-- WITHDRAW -->
+
+      <div
+        class="action-card"
+        onclick="openWithdraw()">
+
+        <div class="action-icon">
+          💵
+        </div>
+
+        <h3>
+          Withdraw
+        </h3>
+
+        <p>
+          Withdraw your balance
+        </p>
+
+      </div>
+
+
+
+      <!-- TRANSACTIONS -->
+
+      <div
+        class="action-card"
+        onclick="openTransactions()">
+
+        <div class="action-icon">
+          📊
+        </div>
+
+        <h3>
+          Transactions
+        </h3>
+
+        <p>
+          View transaction history
+        </p>
+
+      </div>
+
+
+
+      <!-- PROFILE -->
+
+      <div
+        class="action-card"
+        onclick="openProfile()">
+
+        <div class="action-icon">
+          👤
+        </div>
+
+        <h3>
+          Profile
+        </h3>
+
+        <p>
+          Manage your account
+        </p>
+
+      </div>
+
+
+
+      <!-- SETTINGS -->
+
+      <div
+        class="action-card"
+        onclick="openSettings()">
+
+        <div class="action-icon">
+          ⚙️
+        </div>
+
+        <h3>
+          Settings
+        </h3>
+
+        <p>
+          Account settings
+        </p>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- TRANSACTIONS -->
+
+    <section class="transactions">
+
+      <div class="transaction-header">
+
+        <h2>
+          Recent Transactions
+        </h2>
+
+        <span
+          class="view-all"
+          onclick="openTransactions()">
+
+          View all
+
+        </span>
+
+      </div>
+
+
+      <div class="empty" id="transactionList">
+
+        <div class="empty-icon">
+          📋
+        </div>
+
+        No transactions yet.
+
+      </div>
+
+    </section>
+
+
+
+    <!-- ACCOUNT INFORMATION -->
+
+    <section class="info-card">
+
+      <h3>
+        Account Information
+      </h3>
+
+
+      <div class="info-row">
+
+        <span class="info-label">
+          Account
+        </span>
+
+        <span>
+          Active
+        </span>
+
+      </div>
+
+
+      <div class="info-row">
+
+        <span class="info-label">
+          Currency
+        </span>
+
+        <span>
+          Birr
+        </span>
+
+      </div>
+
+
+      <div class="info-row">
+
+        <span class="info-label">
+          Status
+        </span>
+
+        <span>
+          Verified
+        </span>
+
+      </div>
+
+    </section>
+
+
+
+    <div class="footer">
+
+      © 2026 Exchange Financial Online
+
+    </div>
+
+  </main>
+
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================== -->
+
+  <script>
+    const SUPABASE_URL = "https://pvwlgkxddazcgtsewgji.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2d2xna3hkZGF6Y2d0c2V3Z2ppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MTU5MjQsImV4cCI6MjEwNjQ5MTkyNH0.4Oko-gU9wmr6Ylfh2hj10L73QHgVtKaVBWbyeCAXaS8";
+    const phone = localStorage.getItem("efo_phone") || localStorage.getItem("yayya_phone");
+    if (!phone) window.location.replace("login.html");
+    const headers = { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` };
+    const money = n => `${Number(n || 0).toLocaleString("en-US", {minimumFractionDigits:2, maximumFractionDigits:2})} Birr`;
+    async function loadDashboard() {
+      if (!phone) return;
+      try {
+        const r = await fetch(`${SUPABASE_URL}/rest/v1/users?phone=eq.${encodeURIComponent(phone)}&select=first_name,phone,balance`, {headers});
+        if (!r.ok) throw new Error(await r.text());
+        const rows = await r.json();
+        if (!rows.length) { localStorage.removeItem("efo_phone"); localStorage.removeItem("yayya_phone"); window.location.replace("login.html"); return; }
+        const u = rows[0];
+        document.getElementById("welcomeName").textContent = `Welcome, ${u.first_name || "Customer"} 👋`;
+        document.getElementById("accountBalance").textContent = money(u.balance);
+        const list = document.getElementById("transactionList");
+        // Transaction history is shown if the optional transactions table exists.
+        try {
+          const tr = await fetch(`${SUPABASE_URL}/rest/v1/transactions?phone=eq.${encodeURIComponent(phone)}&select=type,amount,status,created_at&order=created_at.desc&limit=5`, {headers});
+          if (tr.ok) {
+            const items = await tr.json();
+            if (items.length) { list.innerHTML = items.map(t => `<div style="display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #eee"><span>${String(t.type||"Transaction").replace(/[<>]/g,"")}<small style="display:block;color:#888">${t.created_at ? new Date(t.created_at).toLocaleString() : ""} · ${t.status||""}</small></span><strong>${money(t.amount)}</strong></div>`).join(""); } else list.textContent = "No transactions yet.";
+          } else list.textContent = "No transactions yet.";
+        } catch { list.textContent = "No transactions yet."; }
+      } catch (e) { console.error(e); document.getElementById("accountBalance").textContent = "Unable to load balance"; document.getElementById("transactionList").textContent = "Could not load account data. Check Supabase permissions."; }
+    }
+    function openWithdraw() { window.location.href = "withdraw.html"; }
+    function openTransactions() { document.getElementById("transactionList").scrollIntoView({behavior:"smooth"}); }
+    function openProfile() { alert(`Signed in with phone: ${phone || "unknown"}`); }
+    function openSettings() { if (confirm("Log out of Exchange Financial Online?")) { localStorage.removeItem("efo_phone"); localStorage.removeItem("yayya_phone"); window.location.href="login.html"; } }
+    loadDashboard();
+  </script>
+
+
+</body>
+</html>

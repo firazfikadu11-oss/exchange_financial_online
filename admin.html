@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Admin - Exchange Financial Online</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f4f7f9;
+      color: #172033;
+    }
+
+    .header {
+      background: #0f172a;
+      color: white;
+      padding: 18px 20px;
+      text-align: center;
+    }
+
+    .header h1 {
+      font-size: 21px;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: auto;
+      padding: 22px 18px 40px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 18px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    }
+
+    .card h2 {
+      font-size: 17px;
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d1d5db;
+      border-radius: 10px;
+      outline: none;
+      font-size: 15px;
+      margin-bottom: 12px;
+    }
+
+    input:focus {
+      border-color: #0f172a;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .search-btn {
+      width: 100%;
+      background: #0f172a;
+      color: white;
+    }
+
+    .user-box {
+      display: none;
+    }
+
+    .phone {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    .balance-box {
+      background: #0f172a;
+      color: white;
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .balance-label {
+      font-size: 12px;
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+
+    .balance {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .amount-label {
+      margin-top: 5px;
+    }
+
+    .amount {
+      font-size: 20px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .add-btn {
+      background: #15803d;
+      color: white;
+    }
+
+    .remove-btn {
+      background: #b91c1c;
+      color: white;
+    }
+
+    .message {
+      display: none;
+      text-align: center;
+      font-size: 14px;
+      margin-top: 15px;
+      line-height: 1.5;
+    }
+
+    .status {
+      display: none;
+      padding: 12px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      margin-top: 15px;
+      font-size: 13px;
+    }
+
+    .footer {
+      text-align: center;
+      color: #9ca3af;
+      font-size: 11px;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <h1>Exchange Financial Online</h1>
+    <p>Admin Panel</p>
+  </header>
+
+
+  <main class="container">
+
+    <!-- SEARCH USER -->
+    <section class="card">
+
+      <h2>🔎 Find User</h2>
+
+      <label for="phone">
+        User Phone Number
+      </label>
+
+      <input
+        type="tel"
+        id="phone"
+        placeholder="Enter phone number"
+        autocomplete="off"
+      >
+
+      <button
+        class="search-btn"
+        id="searchBtn"
+        onclick="findUser()">
+
+        Search User
+
+      </button>
+
+      <div
+        class="message"
+        id="searchMessage">
+      </div>
+
+    </section>
+
+
+    <!-- USER -->
+    <section
+      class="card user-box"
+      id="userBox">
+
+      <h2>👤 User Account</h2>
+
+      <div
+        class="phone"
+        id="userPhone">
+      </div>
+
+
+      <!-- BALANCE -->
+      <div class="balance-box">
+
+        <div class="balance-label">
+          Current Balance
+        </div>
+
+        <div
+          class="balance"
+          id="currentBalance">
+
+          0.00 Birr
+
+        </div>
+
+      </div>
+
+
+      <!-- AMOUNT -->
+      <label for="amount">
+        Amount
+      </label>
+
+      <input
+        type="number"
+        id="amount"
+        placeholder="Enter amount"
+        min="0.01"
+        step="0.01"
+      >
+
+
+      <!-- BUTTONS -->
+      <div class="buttons">
+
+        <button
+          class="add-btn"
+          onclick="addBalance()">
+
+          ➕ Add Balance
+
+        </button>
+
+        <button
+          class="remove-btn"
+          onclick="removeBalance()">
+
+          ➖ Remove Balance
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="status"
+        id="status">
+      </div>
+
+    </section>
+
+
+    <div class="footer">
+      © 2026 Exchange Financial Online
+    </div>
+
+  </main>
+
+
+  <script>
+
+    // =========================================
+    // SUPABASE
+    // =========================================
+
+    const SUPABASE_URL =
+      "https://pvwlgkxddazcgtsewgji.supabase.co";
+
+    const SUPABASE_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB2d2xna3hkZGF6Y2d0c2V3Z2ppIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA5MTU5MjQsImV4cCI6MjEwNjQ5MTkyNH0.4Oko-gU9wmr6Ylfh2hj10L73QHgVtKaVBWbyeCAXaS8";
+
+
+    // =========================================
+    // CURRENT USER
+    // =========================================
+
+    let selectedUser = null;
+
+
+    // =========================================
+    // ELEMENTS
+    // =========================================
+
+    const phoneInput =
+      document.getElementById("phone");
+
+    const amountInput =
+      document.getElementById("amount");
+
+    const userBox =
+      document.getElementById("userBox");
+
+    const userPhone =
+      document.getElementById("userPhone");
+
+    const currentBalance =
+      document.getElementById("currentBalance");
+
+    const searchMessage =
+      document.getElementById("searchMessage");
+
+    const status =
+      document.getElementById("status");
+
+
+    // =========================================
+    // FIND USER
+    // =========================================
+
+    async function findUser() {
+
+      const phone =
+        phoneInput.value.trim();
+
+
+      if (!phone) {
+
+        showSearchMessage(
+          "Please enter a phone number.",
+          "error"
+        );
+
+        return;
+
+      }
+
+
+      searchMessage.style.display = "none";
+
+      userBox.style.display = "none";
+
+
+      try {
+
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/users?phone=eq.${encodeURIComponent(phone)}&select=id,phone,balance`,
+          {
+            method: "GET",
+
+            headers: {
+              "apikey": SUPABASE_KEY,
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`
+            }
+          }
+        );
+
+
+        if (!response.ok) {
+
+          const error =
+            await response.text();
+
+          console.log(error);
+
+          showSearchMessage(
+            "Could not search user.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const users =
+          await response.json();
+
+
+        if (users.length === 0) {
+
+          showSearchMessage(
+            "User not found.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        selectedUser =
+          users[0];
+
+
+        // Show user
+        userPhone.textContent =
+          "Phone: " + selectedUser.phone;
+
+
+        updateBalanceDisplay(
+          selectedUser.balance
+        );
+
+
+        userBox.style.display =
+          "block";
+
+
+        status.style.display =
+          "none";
+
+
+        amountInput.value = "";
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showSearchMessage(
+          "Connection error.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    // =========================================
+    // ADD BALANCE
+    // =========================================
+
+    async function addBalance() {
+
+      if (!selectedUser) {
+
+        alert("Please search for a user first.");
+
+        return;
+
+      }
+
+
+      const amount =
+        parseFloat(amountInput.value);
+
+
+      if (!amount || amount <= 0) {
+
+        alert("Enter a valid amount.");
+
+        return;
+
+      }
+
+
+      const oldBalance =
+        parseFloat(selectedUser.balance || 0);
+
+
+      const newBalance =
+        oldBalance + amount;
+
+
+      await updateBalance(
+        newBalance,
+        "Balance added successfully."
+      );
+
+    }
+
+
+    // =========================================
+    // REMOVE BALANCE
+    // =========================================
+
+    async function removeBalance() {
+
+      if (!selectedUser) {
+
+        alert("Please search for a user first.");
+
+        return;
+
+      }
+
+
+      const amount =
+        parseFloat(amountInput.value);
+
+
+      if (!amount || amount <= 0) {
+
+        alert("Enter a valid amount.");
+
+        return;
+
+      }
+
+
+      const oldBalance =
+        parseFloat(selectedUser.balance || 0);
+
+
+      if (amount > oldBalance) {
+
+        alert(
+          "Cannot remove more than the current balance."
+        );
+
+        return;
+
+      }
+
+
+      const newBalance =
+        oldBalance - amount;
+
+
+      await updateBalance(
+        newBalance,
+        "Balance removed successfully."
+      );
+
+    }
+
+
+    // =========================================
+    // UPDATE BALANCE
+    // =========================================
+
+    async function updateBalance(
+      newBalance,
+      successText
+    ) {
+
+      try {
+
+        const response = await fetch(
+          `${SUPABASE_URL}/rest/v1/users?id=eq.${selectedUser.id}`,
+          {
+            method: "PATCH",
+
+            headers: {
+
+              "Content-Type":
+                "application/json",
+
+              "apikey":
+                SUPABASE_KEY,
+
+              "Authorization":
+                `Bearer ${SUPABASE_KEY}`,
+
+              "Prefer":
+                "return=representation"
+
+            },
+
+            body: JSON.stringify({
+
+              balance:
+                Number(newBalance.toFixed(2))
+
+            })
+
+          }
+        );
+
+
+        if (!response.ok) {
+
+          const error =
+            await response.text();
+
+          console.log(error);
+
+          showStatus(
+            "Balance update failed.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        const updated =
+          await response.json();
+
+
+        if (updated.length > 0) {
+
+          selectedUser =
+            updated[0];
+
+        } else {
+
+          selectedUser.balance =
+            newBalance;
+
+        }
+
+
+        updateBalanceDisplay(
+          selectedUser.balance
+        );
+
+
+        amountInput.value = "";
+
+
+        showStatus(
+          successText,
+          "success"
+        );
+
+
+      } catch (error) {
+
+        console.error(error);
+
+        showStatus(
+          "Connection error.",
+          "error"
+        );
+
+      }
+
+    }
+
+
+    // =========================================
+    // BALANCE DISPLAY
+    // =========================================
+
+    function updateBalanceDisplay(balance) {
+
+      const value =
+        Number(balance || 0);
+
+
+      currentBalance.textContent =
+        value.toFixed(2) + " Birr";
+
+    }
+
+
+    // =========================================
+    // SEARCH MESSAGE
+    // =========================================
+
+    function showSearchMessage(
+      text,
+      type
+    ) {
+
+      searchMessage.style.display =
+        "block";
+
+      searchMessage.textContent =
+        text;
+
+
+      if (type === "error") {
+
+        searchMessage.style.color =
+          "#b91c1c";
+
+      } else {
+
+        searchMessage.style.color =
+          "#15803d";
+
+      }
+
+    }
+
+
+    // =========================================
+    // STATUS MESSAGE
+    // =========================================
+
+    function showStatus(
+      text,
+      type
+    ) {
+
+      status.style.display =
+        "block";
+
+      status.textContent =
+        text;
+
+
+      if (type === "error") {
+
+        status.style.color =
+          "#b91c1c";
+
+      } else {
+
+        status.style.color =
+          "#15803d";
+
+      }
+
+    }
+
+  </script>
+
+</body>
+</html>
